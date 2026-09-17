@@ -1,0 +1,9 @@
+aitviewer==1.14.2
+torch==2.13.0
+numpy==2.5.1
+smplx==0.1.28
+moderngl==5.12.0
+moderngl-window==3.1.1
+glfw==2.10.1
+trimesh==4.12.2
+imgui==2.0.0

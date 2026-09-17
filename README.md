@@ -44,6 +44,78 @@ scripts/
 
 Python 包参考 [requirements.txt](requirements.txt)。SMPL-X 模型受其官方下载许可约束，不应提交到公开仓库。
 
+## 已验证的软件版本
+
+下面是本项目实际转换样例时使用并核对过的环境。推理和回放使用两个独立虚拟环境，不能把两套 PyTorch/NumPy 版本混为一套。
+
+### SMPL-X 推理环境
+
+| 软件 | 版本 |
+| --- | --- |
+| Python | `3.12.13` |
+| PyTorch | `2.7.1+cu128` |
+| TorchVision | `0.22.1+cu128` |
+| PyTorch CUDA | `12.8` |
+| cuDNN | `9.7.1` |
+| NumPy | `2.2.6` |
+| SciPy | `1.18.1` |
+| OpenCV | `4.12.0.88` |
+| Ultralytics | `8.4.131` |
+| smplx | `0.1.28` |
+| timm | `1.0.28` |
+| Transformers | `4.57.6` |
+| Einops | `0.8.2` |
+| Pillow | `12.3.0` |
+| Safetensors | `0.8.0` |
+
+完整清单见 [requirements-inference.txt](requirements-inference.txt)。
+
+### AITViewer 回放环境
+
+| 软件 | 版本 |
+| --- | --- |
+| Python | `3.12.13` |
+| AITViewer | `1.14.2` |
+| PyTorch | `2.13.0` |
+| NumPy | `2.5.1` |
+| smplx | `0.1.28` |
+| ModernGL | `5.12.0` |
+| ModernGL Window | `3.1.1` |
+| GLFW | `2.10.1` |
+| Trimesh | `4.12.2` |
+| imgui | `2.0.0` |
+
+完整清单见 [requirements-viewer.txt](requirements-viewer.txt)。
+
+### 模型与系统
+
+| 项目 | 版本或标识 |
+| --- | --- |
+| Multi-HMR checkpoint | `multiHMR_672_S.pt` |
+| Multi-HMR Git commit | `651fb411e1cbcc626aaa5f38805ecab9cc891f7a` |
+| YOLO checkpoint | `yolo11s.pt` |
+| SMPL-X 模型 | `models_smplx_v1_1 / SMPLX_NEUTRAL.npz` |
+| SMPL-X gender | `neutral` |
+| Ubuntu | `22.04.5 LTS` |
+| Linux kernel | `6.8.0-138-generic` |
+| NVIDIA driver module | `595.84` |
+| Pipeline | `boxing_smplx_v4_spatial_contact` |
+
+Multi-HMR 仓库在核对时为 `651fb41-dirty`，表示该提交上存在本地修改；本项目自己的处理修改均已收录在本仓库的 `scripts/` 中。
+
+### 模型 SHA-256
+
+```text
+multiHMR_672_S.pt
+60124549867146ae460045f68f5ae9bb9d1f0cfac3aa5261d69c3db1d2247b5b
+
+yolo11s.pt
+85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5
+
+SMPLX_NEUTRAL.npz
+376021446ddc86e99acacd795182bbef903e61d33b76b9d8b359c2b0865bd992
+```
+
 当前脚本会自动查找：
 
 ```text
@@ -141,4 +213,3 @@ cd scripts
 ## 数据质量说明
 
 自动 QC 能排除大量身份交换、跳变、身体互穿和二维/三维接触不一致，但单目三维人体重建无法提供绝对的物理真值。正式发布数据集前，仍建议对通过结果进行抽样多视角回放检查，并将 QC 失败目录隔离。
-
